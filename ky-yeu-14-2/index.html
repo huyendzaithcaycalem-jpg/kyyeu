@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lời Mời Kỷ Yếu 14/2 ✨</title>
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandPink: '#ec4899',
+            brandRose: '#f43f5e',
+            softPeach: '#fff1f2',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Fonts với hỗ trợ đầy đủ tiếng Việt (Không bị lỗi dấu) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,600;0,700;1,600&family=Mali:wght@500;600;700&family=Patrick+Hand&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Background Floating Petals Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Audio Element & Floating Toggle -->
+  <audio id="bg-music" loop preload="none"></audio>
+  <button id="audio-toggle" class="audio-toggle-btn" title="Bật/Tắt nhạc nền" aria-label="Bật/Tắt nhạc">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+  </button>
+
+  <!-- Main Container -->
+  <main class="app-container">
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 1: MÀN HÌNH CHÀO MỪNG, LỜI DẪN, ẢNH & CÂU HỎI     -->
+    <!-- ======================================================== -->
+    <section id="screen-intro" class="screen active">
+      <div class="glass-card text-center">
+
+        <!-- Header Badge -->
+        <div class="mb-4">
+          <span class="badge-pill">
+            <span class="animate-pulse">💌</span> Thư Mời Đặc Biệt · 14 Tháng 2
+          </span>
+        </div>
+
+        <!-- Tiêu đề chính -->
+        <h1 class="font-serif-title text-3xl sm:text-4xl font-bold text-gray-800 tracking-tight mb-2">
+          Cùng Lưu Giữ Kỷ Niệm 🎓✨
+        </h1>
+        <p class="font-handwriting text-2xl text-pink-500 mb-5 font-semibold">
+          <span class="cfg-owner-name">Bùi Huyền</span> có điều muốn nói ..
+        </p>
+
+        <!-- Lời dẫn ấm áp -->
+        <div
+          class="text-gray-600 text-sm sm:text-base leading-relaxed bg-white/70 p-4 sm:p-5 rounded-2xl border border-pink-100 shadow-sm mb-6 text-left">
+          <p class="mb-2.5">
+            ✨ <strong>Chào cậu thân mến,</strong>
+          </p>
+          <p class="mb-2.5">
+            Thanh xuân trôi qua tựa như một cơn mưa rào, vậy là chuỗi ngày áo trắng sân trường cũng sắp khép lại để
+            nhường chỗ cho những hành trình mới. Vào ngày <strong>14/2</strong> này, tớ có một buổi chụp ảnh kỷ yếu để
+            đánh dấu cột mốc ý nghĩa này.
+          </p>
+          <p>
+            Tớ rất mong muốn có sự hiện diện của cậu trong ngày hôm ấy, để tụi mình cùng nhau lưu lại những nụ cười rạng
+            rỡ và những khoảnh khắc đẹp nhất của tuổi trẻ! 🌸📸
+          </p>
+        </div>
+        <!-- Album Ảnh Kỷ Yếu (Polaroid Cards) -->
+        <div class="text-left mb-2">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-gray-400">
+            📷 Vài khoảnh khắc của tớ (Bấm vào ảnh để xem to nha):
+          </h2>
+        </div>
+
+        <div id="polaroid-gallery" class="polaroid-grid">
+          <!-- Render dynamically from CONFIG.photos -->
+        </div>
+
+        <!-- KHUNG CÂU HỎI TƯƠNG TÁC CHÍNH -->
+        <div
+          class="mt-4 p-5 sm:p-6 bg-gradient-to-br from-pink-100/90 via-purple-50 to-pink-50 rounded-3xl border-2 border-pink-200 shadow-md">
+          <div class="text-2xl mb-1">💌</div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+            Cậu có rảnh vào hôm 14/2 này không dạ?
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-500 mb-5">
+            Hãy chọn một câu trả lời thật lòng nhé, tớ đang hồi hộp đợi nè! 🥺
+          </p>
+
+          <!-- 2 Lựa chọn -->
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <!-- Nút Có -->
+            <button id="btn-answer-yes" class="btn-primary-action animate-bouncy">
+              <span>Có, mình rảnh nè!</span>
+              <span class="text-xl">🥰</span>
+            </button>
+
+            <!-- Nút Không -->
+            <button id="btn-answer-no" class="btn-secondary-action">
+              <span>Tiếc quá, hôm đó tớ bận rùi</span>
+              <span class="text-xl">🥺</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 2: LỜI CẢM ƠN KHI BẠN BÈ RẢNH (ACCEPT FLOW)       -->
+    <!-- ======================================================== -->
+    <section id="screen-accept" class="screen">
+      <div class="glass-card text-center">
+
+        <!-- Celebration Header -->
+        <div class="inline-flex p-4 bg-pink-100 rounded-full mb-4 pulse-soft shadow-inner">
+          <span class="text-5xl">🎉</span>
+        </div>
+
+        <h1 class="font-serif-title text-3xl sm:text-4xl font-bold text-gray-800 mb-2">
+          Yayyyy! Vui Quá Điii! 🥳
+        </h1>
+        <p class="font-handwriting text-2xl text-pink-500 font-bold mb-4">
+          Cảm ơn cậu nhiều nhiều lắmmm! ❤️
+        </p>
+
+        <div
+          class="bg-white/80 p-5 rounded-2xl border border-pink-100 text-gray-600 text-sm sm:text-base leading-relaxed mb-6 text-left shadow-sm">
+          <p class="mb-3">
+            Nghe tin cậu rảnh làm tớ vui lắm lun á! Sự hiện diện của cậu trong ngày 14/2 này sẽ làm buổi chụp kỷ yếu của
+            tớ trở nên trọn vẹn và ý nghĩa hơn bao giờ hết. ✨
+          </p>
+          <p class="text-pink-600 font-semibold">
+            Tớ đã note lịch rồi, nhất định tụi mình phải có những tấm ảnh siêu lung linh cùng nhau nhé!
+          </p>
+        </div>
+
+        <!-- Chi tiết sự kiện -->
+        <div
+          class="bg-gradient-to-br from-pink-50/80 to-purple-50/80 rounded-2xl p-5 border border-pink-200/80 text-left mb-6 space-y-3">
+          <div
+            class="text-xs uppercase font-bold tracking-wider text-pink-600 border-b border-pink-200 pb-2 flex items-center justify-between">
+            <span>Thông tin buổi hẹn kỷ yếu</span>
+            <span>📍 Điểm hẹn 14/02</span>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="text-xl">📅</span>
+            <div>
+              <span class="block text-xs text-gray-400 font-semibold">Thời gian:</span>
+              <span class="cfg-event-time font-bold text-gray-800 text-sm sm:text-base">10:20-11:30 a.m., Ngày
+                14/02</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="text-xl">🏫</span>
+            <div>
+              <span class="block text-xs text-gray-400 font-semibold">Địa điểm:</span>
+              <span class="cfg-event-location font-bold text-gray-800 text-sm sm:text-base">Sân trường THPT Chuyên Hoàng
+                Văn Thụ</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="text-xl">👗</span>
+            <div>
+              <span class="block text-xs text-gray-400 font-semibold">Dress code gợi ý:</span>
+              <span class="cfg-dress-code text-sm text-gray-700">Tone màu Trắng / Be / Pastel xinh xắn</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="text-xl">📞</span>
+            <div>
+              <span class="block text-xs text-gray-400 font-semibold">Số điện thoại / Zalo liên hệ:</span>
+              <a href="https://zalo.me/0974773986" target="_blank"
+                class="cfg-phone-number font-bold text-pink-600 hover:underline text-sm sm:text-base">0974 773 986</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nút thao tác -->
+        <div class="space-y-3">
+          <a id="btn-add-calendar" href="#" target="_blank" class="btn-primary-action w-full">
+            <span>📅 Lưu vào Google Calendar</span>
+          </a>
+
+          <a href="#" target="_blank"
+            class="link-zalo btn-secondary-action w-full !text-blue-600 !border-blue-200 hover:!bg-blue-50">
+            <span>💬 Nhắn tin Zalo báo cho tớ nha: 0974773986</span>
+          </a>
+
+          <button class="btn-restart text-xs text-gray-400 hover:text-gray-600 underline pt-2 block mx-auto">
+            ← Quay lại trang chủ xem tiếp
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 3: LỜI CHIA BUỒN & XIN ẢNH TOÀN THÂN ĐỂ GHÉP      -->
+    <!-- ======================================================== -->
+    <section id="screen-decline-question" class="screen">
+      <div class="glass-card text-center">
+
+        <!-- Sad Header Icon -->
+        <div class="inline-flex p-4 bg-gray-100 rounded-full mb-3">
+          <span class="text-5xl">😭</span>
+        </div>
+
+        <h1 class="font-serif-title text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+          Huhu... Tiếc Quá Đi Mất! 💔
+        </h1>
+        <p class="font-handwriting text-2xl text-rose-500 font-bold mb-4">
+          Biết là ngày 14/2 cậu bận rùi...
+        </p>
+
+        <!-- Lời chia buồn nhẹ nhàng -->
+        <div
+          class="bg-white/80 p-5 rounded-2xl border border-gray-200 text-gray-600 text-sm sm:text-base leading-relaxed mb-6 text-left shadow-sm">
+          <p class="mb-2">
+            Nghe cậu bảo bận tớ hụt hẫng một chút xíu nè... Nhưng mà tớ hiểu 14/2 là ngày đặc biệt và ai cũng có những
+            kế hoạch riêng!
+          </p>
+          <p class="text-gray-500 text-xs sm:text-sm">
+            Tuy nhiên, trong một cuốn kỷ yếu thanh xuân hoàn hảo thì làm sao có thể vắng mặt một người bạn đặc biệt như
+            cậu được chứ! 🥺
+          </p>
+        </div>
+
+        <!-- HỘP ĐỀ XUẤT XIN ẢNH TOÀN THÂN -->
+        <div
+          class="p-5 sm:p-6 bg-gradient-to-br from-amber-50 via-pink-50 to-rose-50 rounded-3xl border-2 border-rose-200 shadow-md mb-6">
+          <div class="inline-block bg-rose-100 text-rose-700 font-bold text-xs px-3 py-1 rounded-full mb-2">
+            💡 Ý tưởng cứu vãn thanh xuân nè!
+          </div>
+
+          <h2 class="text-base sm:text-lg font-bold text-gray-800 mb-2">
+            "Cậu có thể cho mình xin một bức ảnh từ đầu đến chân để mình ghép vô được khum?" 🥺📸
+          </h2>
+
+          <p class="text-xs sm:text-sm text-gray-600 mb-5 leading-relaxed">
+            Cậu chỉ cần gửi một tấm ảnh chụp toàn thân thật xinh đẹp, tớ hứa sẽ photoshop ghép cậu đứng ngay cạnh tớ
+            siêu mượt mà luôn!
+          </p>
+
+          <!-- 2 Lựa chọn tiếp theo -->
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <!-- Đồng ý gửi ảnh -->
+            <button id="btn-photo-yes"
+              class="btn-primary-action animate-bouncy !bg-gradient-to-r !from-rose-500 !to-pink-500">
+              <span>Được nha, gửi liền nè! 📸</span>
+            </button>
+
+            <!-- Từ chối gửi ảnh -->
+            <button id="btn-photo-no" class="btn-secondary-action">
+              <span>Hong được đâu, ngại lém 🙈</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn-restart text-xs text-gray-400 hover:text-gray-600 underline">
+          ← Quay lại nếu cậu đổi ý muốn đi cùng
+        </button>
+
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 4: GIAO DIỆN CẢM ƠN KHI ĐỒNG Ý GỬI ẢNH GHÉP       -->
+    <!-- ======================================================== -->
+    <section id="screen-photo-accepted" class="screen">
+      <div class="glass-card text-center">
+
+        <div class="inline-flex p-4 bg-pink-100 rounded-full mb-3 pulse-soft">
+          <span class="text-5xl">💖</span>
+        </div>
+
+        <h1 class="font-serif-title text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+          Aaaaa Siêu Cảm Động Luôn! 🥰
+        </h1>
+        <p class="font-handwriting text-2xl text-pink-500 font-bold mb-4">
+          Cảm ơn cậu đã đồng ý gửi ảnh cho tớ nha!
+        </p>
+
+        <div
+          class="bg-white/80 p-4 sm:p-5 rounded-2xl border border-pink-100 text-gray-600 text-sm leading-relaxed mb-6 text-left shadow-sm">
+          <p class="mb-2">
+            Dù không có mặt trực tiếp nhưng bảo đảm bàn tay photoshop điêu luyện của tớ sẽ giúp chúng mình có những bức
+            ảnh thiệt đẹp nèee
+            📸 <strong>Mẹo chụp ảnh ghép đẹp:</strong> Chọn ảnh chụp rõ toàn thân từ đầu tới chân, ánh sáng tự nhiên và
+            tạo dáng tự tin nhất nha!
+        </div>
+      </div>
+
+      <!-- Khung Upload / Gửi ảnh -->
+      <div class="mb-6">
+        <input type="file" id="photo-input" accept="image/*" class="hidden">
+
+        <div id="upload-dropzone" class="upload-dropzone">
+          <div class="text-4xl mb-2">🖼️</div>
+          <div class="font-bold text-gray-700 text-sm sm:text-base mb-1">
+            Bấm vào đây để tải ảnh toàn thân của cậu lên
+          </div>
+          <div class="text-xs text-gray-400">
+            Hoặc kéo thả file ảnh vào khung này (Hỗ trợ JPG, PNG, WebP)
+          </div>
+        </div>
+
+        <!-- Preview ảnh đã chọn -->
+        <div id="preview-container" class="preview-container">
+          <img id="preview-image" src="" alt="Ảnh toàn thân của bạn">
+          <div class="p-3 bg-pink-50 text-xs text-pink-700 font-medium rounded-b-lg">
+            Ảnh nhìn xinh/ngầu quá chừng! ✨ Giờ cậu gửi qua cho tớ nha:
+          </div>
+        </div>
+      </div>
+
+      <!-- Nút gửi qua Zalo / Messenger -->
+      <div class="space-y-3">
+        <a id="btn-send-zalo-photo" href="#" target="_blank"
+          class="link-zalo btn-primary-action w-full !bg-gradient-to-r !from-blue-500 !to-indigo-600 shadow-blue-200">
+          <span>💬 Gửi ảnh ngay qua Zalo cho tớ: 0974773986</span>
+        </a>
+
+        <a href="#" target="_blank"
+          class="link-facebook btn-secondary-action w-full !text-blue-600 !border-blue-200 hover:!bg-blue-50">
+          <span>📩 Hoặc gửi qua Messenger Facebook</span>
+        </a>
+
+        <button class="btn-restart text-xs text-gray-400 hover:text-gray-600 underline pt-2 block mx-auto">
+          ← Quay về trang chủ
+        </button>
+      </div>
+
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 5: GIAO DIỆN CHIA BUỒN / DỖI NHẸ KHI TỪ CHỐI ẢNH  -->
+    <!-- ======================================================== -->
+    <section id="screen-decline-final" class="screen">
+      <div class="glass-card text-center">
+
+        <div class="inline-flex p-4 bg-rose-50 rounded-full mb-3">
+          <span class="text-5xl">😾</span>
+        </div>
+
+        <h1 class="font-serif-title text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+          Ỏ buồn vậyyy! 🥺💔
+        </h1>
+
+        <!-- Lời nhắn chân thành, ấm áp -->
+        <div
+          class="bg-white/80 p-5 rounded-2xl border border-gray-200 text-gray-600 text-sm sm:text-base leading-relaxed mb-6 text-left shadow-sm">
+          <p class="mb-3">
+            Tớ biết là cậu bận và có thể ngại chụp hình nữa nè! Không sao đâu, cậu ghé thăm trang web này và đọc lời mời
+            là tớ đã vui lắm rồi. 🥰
+          </p>
+          <p class="mb-3">
+            Tớ chúc cậu có một ngày <strong>14/2 thật ngọt ngào, ấm áp</strong>, ngập tràn niềm vui và nhận được thật
+            nhiều điều may mắn nhé! 🌷✨
+          </p>
+        </div>
+
+        <!-- Nút thao tác -->
+        <div class="space-y-3">
+          <button class="btn-restart btn-primary-action w-full">
+            <span>Đổi ý rồi (Cho tớ chọn lại nè 😜)</span>
+          </button>
+
+          <a href="#" target="_blank" class="link-facebook btn-secondary-action w-full">
+            <span>Ghé Facebook trò chuyện với tớ</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox Modal Xem Ảnh Phóng To -->
+  <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox()">
+    <div class="relative text-center" onclick="event.stopPropagation()">
+      <button onclick="closeLightbox()"
+        class="absolute -top-10 right-0 text-white text-2xl font-bold bg-black/50 w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/80">
+        &times;
+      </button>
+      <img id="lightbox-image" class="lightbox-content" src="" alt="Xem ảnh">
+      <div id="lightbox-caption" class="text-white font-handwriting text-xl mt-3"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
